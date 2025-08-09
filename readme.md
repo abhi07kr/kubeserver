@@ -1,0 +1,20 @@
+Kubernetes Job Server
+A small Go HTTP server to submit and manage Kubernetes Jobs with priority queuing and concurrency limits. It talks to Kubernetes using client-go, keeps track of running and pending jobs, and exposes a simple REST API.
+
+What it does
+Accepts job submissions with a priority level
+
+Uses a priority queue to schedule jobs
+
+Runs jobs concurrently (configurable max concurrency)
+
+Tracks running jobs by watching the cluster
+
+Lets you list pending and running jobs via API
+
+Gracefully shuts down workers and HTTP server
+
+Requirements
+Go 1.21 or newer
+
+Access to a Kubernetes cluster and kubeconfig (or run in-cluster)

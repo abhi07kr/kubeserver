@@ -7,7 +7,6 @@ import (
 	corev1 "k8s.io/api/core/v1"
 )
 
-// JobSpec wraps the user-submitted Job with metadata.
 type JobSpec struct {
 	Name     string                 `json:"name"`
 	Priority int                    `json:"priority"`

@@ -77,7 +77,7 @@ func (m *Manager) workerLoop(id int) {
 
 		jobItem := m.pq.DequeueBlocking()
 		if jobItem == nil {
-			return // queue closed and empty
+			return
 		}
 
 		m.logger.Info("Dequeued job", slog.String("jobID", jobItem.ID), slog.String("name", jobItem.Spec.Name))
@@ -94,7 +94,6 @@ func (m *Manager) workerLoop(id int) {
 		}
 		m.lock.Unlock()
 
-		// Submit job asynchronously
 		go m.submitJob(jobItem)
 	}
 }

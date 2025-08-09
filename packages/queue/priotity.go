@@ -10,7 +10,6 @@ import (
 	"github.com/google/uuid"
 )
 
-// JobItem is an item in the priority heap
 type JobItem struct {
 	ID       string
 	Spec     models.JobSpec
@@ -18,7 +17,6 @@ type JobItem struct {
 	Index    int
 }
 
-// PriorityQueue is a thread-safe max-priority queue
 type PriorityQueue struct {
 	items  []*JobItem
 	lock   sync.Mutex
@@ -34,7 +32,6 @@ func NewPriorityQueue(logger *slog.Logger) *PriorityQueue {
 	return pq
 }
 
-// heap.Interface
 func (pq *PriorityQueue) Len() int { return len(pq.items) }
 func (pq *PriorityQueue) Less(i, j int) bool {
 	return pq.items[i].Spec.Priority > pq.items[j].Spec.Priority
@@ -51,7 +48,6 @@ func (pq *PriorityQueue) Pop() interface{} {
 	return itm
 }
 
-// Enqueue adds job to queue. returns id and false if queue closed.
 func (pq *PriorityQueue) Enqueue(spec models.JobSpec) (string, bool) {
 	pq.lock.Lock()
 	defer pq.lock.Unlock()
@@ -71,7 +67,6 @@ func (pq *PriorityQueue) Enqueue(spec models.JobSpec) (string, bool) {
 	return item.ID, true
 }
 
-// DequeueBlocking waits for a job or returns nil if queue closed
 func (pq *PriorityQueue) DequeueBlocking() *JobItem {
 	pq.lock.Lock()
 	defer pq.lock.Unlock()
@@ -92,7 +87,6 @@ func (pq *PriorityQueue) DequeueBlocking() *JobItem {
 	return item
 }
 
-// Close marks the queue closed and wakes all waiters.
 func (pq *PriorityQueue) Close() {
 	pq.lock.Lock()
 	pq.closed = true
@@ -100,7 +94,6 @@ func (pq *PriorityQueue) Close() {
 	pq.cond.Broadcast()
 }
 
-// PendingJobs returns a snapshot of queued jobs
 func (pq *PriorityQueue) PendingJobs() []models.JobInfo {
 	pq.lock.Lock()
 	defer pq.lock.Unlock()
@@ -117,7 +110,6 @@ func (pq *PriorityQueue) PendingJobs() []models.JobInfo {
 	return out
 }
 
-// List is just an alias for PendingJobs to match handler expectations
 func (pq *PriorityQueue) List() []models.JobInfo {
 	return pq.PendingJobs()
 }

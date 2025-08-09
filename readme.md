@@ -17,4 +17,15 @@ Gracefully shuts down workers and HTTP server
 Requirements
 Go 1.21 or newer
 
+
 Access to a Kubernetes cluster and kubeconfig (or run in-cluster)
+
+
+To Run It :
+git clone https://github.com/abhi07kr/kubeserver.git
+cd kubeserver
+
+
+go run ./cli --kubeconfig ~/.kube/config --port 8080 --max-concurrency 3
+
+

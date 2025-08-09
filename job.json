@@ -1,0 +1,16 @@
+
+{
+  "name": "job2",
+  "priority": 5,
+  "template": {
+    "metadata": {},
+    "spec": {
+      "containers": [{
+        "name": "sleep2",
+        "image": "busybox",
+        "command": ["sleep", "600"]
+      }],
+      "restartPolicy": "Never"
+    }
+  }
+}

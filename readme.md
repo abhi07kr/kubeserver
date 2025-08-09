@@ -29,3 +29,7 @@ cd kubeserver
 go run ./cli --kubeconfig ~/.kube/config --port 8080 --max-concurrency 3
 
 
+NOTE: Task 2 is also in this repository. (Task2.md)
+
+
+
